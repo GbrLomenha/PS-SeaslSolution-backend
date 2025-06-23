@@ -4,7 +4,7 @@ Neste repositório você encontrará instruções para o desafio técnico do pro
 # Instruções
 Leia com atenção as instruções abaixo e siga os passos necessários para completar o desafio.
 
-1. O desafio é para uma vaga FullStack, entretanto, você pode optar por fazer os dois (API e Front) ou apenas um dos dois projetos. 
+1. O desafio é para uma vaga FullStack, entretanto, você pode optar por fazer os dois (API e Front) ou apenas um dos dois projetos. No caso do front-end, você pode decidir entre fazer uma versão Web ou Mobile.  
 
 2. Você pode escolher a linguagem e o framework que preferir para desenvolver a API e o Frontend. Sinta-se à vontade para utilizar as tecnologias com as quais você se sente mais confortável.
 
