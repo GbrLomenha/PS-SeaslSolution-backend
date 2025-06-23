@@ -49,7 +49,7 @@ Em uma DUV, o passageiro é a pessoa que embarca na viagem, que pode ser estrutu
 - Foto
 
 ## Objetivo do desafio
-Esperamos que o desenvolvedor ao participar do processo seletivo consiga demonstrar suas habilidades de desenvolvimento, tanto no back-end quanto no front-end, criando uma aplicação que consuma uma API e apresente as informações de forma clara e organizada.
+Esperamos que o desenvolvedor ao participar do processo seletivo consiga demonstrar suas habilidades de desenvolvimento, tanto no back-end quanto no front-end, criando uma aplicação que consuma uma e apresente as informações de forma clara e organizada ou um sistema bem estruturado e com uma arquitetura limpa fazendo parte de bons processos de Engenharia de Software.
 
 
 ### Front-End
