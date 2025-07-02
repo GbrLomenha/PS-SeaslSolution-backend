@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
 import { NavioService } from './navio.service';
 import { CreateNavioDto } from './dto/create-navio.dto';
 import { UpdateNavioDto } from './dto/update-navio.dto';
@@ -8,10 +8,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class NavioController {
   constructor(private readonly navioService: NavioService) {}
 
-  @FileInterceptor('file')
+  @UseInterceptors(FileInterceptor('img_file'))
   @Post()
-  create(@Body() createNavioDto: CreateNavioDto, file: Express.Multer.File) {
-    return this.navioService.create(createNavioDto, file);
+  create(@Body() createNavioDto: CreateNavioDto, img_file: Express.Multer.File) {
+    return this.navioService.create(createNavioDto, img_file);
   }
 
   @Get()

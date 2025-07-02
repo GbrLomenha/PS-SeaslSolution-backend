@@ -4,7 +4,7 @@ import { UpdateNavioDto } from './dto/update-navio.dto';
 
 @Injectable()
 export class NavioService {
-  create(createNavioDto: CreateNavioDto) {
+  create(createNavioDto: CreateNavioDto, img_file: Express.Multer.File) {
     return 'This action adds a new navio';
   }
 
