@@ -47,8 +47,14 @@ export class NavioService {
   }
 
   async update(ID_navio: number, updateNavioDto: UpdateNavioDto, img_file?: Express.Multer.File) {
+    const navio = await this.prismaService.navio.findUnique({
+      where: { ID_navio: ID_navio }
+    })
 
-    if(img_file){
+    if(navio && img_file){
+      this.cloudinary.deleteImage(navio.ID_img_cloudinary)
+        .catch(error => { throw new HttpException(`Falha ao deletar imagem no serviço de nuvem ${error}`, 500) });
+
       const uploadResult = await this.cloudinary.upload(img_file)
         .catch(error => { throw new HttpException(`Falha ao gravar a imagem no serviço de nuvem ${error}`, 500) });
 
