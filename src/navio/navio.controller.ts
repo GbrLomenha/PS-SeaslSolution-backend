@@ -14,14 +14,14 @@ export class NavioController {
     return this.navioService.create(createNavioDto, img_file);
   }
 
-  @Get()
+  @Get("/todos")
   findAll() {
     return this.navioService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.navioService.findOne(+id);
+  @Get('detalhes/:id')
+  findOne(@Param('id') ID_navio: string) {
+    return this.navioService.findOne(+ID_navio);
   }
 
   @Patch(':id')
