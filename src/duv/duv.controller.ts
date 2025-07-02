@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DuvService } from './duv.service';
 import { CreateDuvDto } from './dto/create-duv.dto';
 import { UpdateDuvDto } from './dto/update-duv.dto';
-import { ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('DUVs')
 @Controller('duv')
 export class DuvController {
   constructor(private readonly duvService: DuvService) {}

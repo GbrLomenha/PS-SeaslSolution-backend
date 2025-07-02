@@ -3,8 +3,9 @@ import { NavioService } from './navio.service';
 import { CreateNavioDto } from './dto/create-navio.dto';
 import { UpdateNavioDto } from './dto/update-navio.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Navios')
 @Controller('navio')
 export class NavioController {
   constructor(private readonly navioService: NavioService) {}

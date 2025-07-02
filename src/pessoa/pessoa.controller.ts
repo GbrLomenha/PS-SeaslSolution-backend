@@ -4,9 +4,10 @@ import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateTripulanteDto } from './dto/create-tripulate.dto';
-import { ApiBody, ApiOperation, ApiResponse, ApiParam} from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiParam, ApiTags} from '@nestjs/swagger';
 import { CreatePassageiroDto } from './dto/create-passageiro.dto';
 
+@ApiTags('Pessoas')
 @Controller('pessoa')
 export class PessoaController {
   constructor(private readonly pessoaService: PessoaService) {}
