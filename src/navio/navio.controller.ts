@@ -2,14 +2,16 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { NavioService } from './navio.service';
 import { CreateNavioDto } from './dto/create-navio.dto';
 import { UpdateNavioDto } from './dto/update-navio.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('navio')
 export class NavioController {
   constructor(private readonly navioService: NavioService) {}
 
+  @FileInterceptor('file')
   @Post()
-  create(@Body() createNavioDto: CreateNavioDto) {
-    return this.navioService.create(createNavioDto);
+  create(@Body() createNavioDto: CreateNavioDto, file: Express.Multer.File) {
+    return this.navioService.create(createNavioDto, file);
   }
 
   @Get()
