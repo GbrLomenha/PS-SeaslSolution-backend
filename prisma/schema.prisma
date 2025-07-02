@@ -11,6 +11,7 @@ model Navio {
 	ID_navio Int @id @default(autoincrement())
 	NO_navio String
 	URL_img_navio String
+	ID_img_cloudinary String
 	DS_bandeira String
 	DT_criacao DateTime @default(now())
 	DT_atualizacao DateTime @updatedAt()
@@ -23,6 +24,7 @@ model Pessoa {
 	NO_pessoa String
 	DS_nacionalidade String
 	URL_foto_pessoa String
+	ID_img_cloudinary String
 	DT_criacao DateTime @default(now())
 	DT_atualizacao DateTime @updatedAt()
 	passageiro Passageiro?
