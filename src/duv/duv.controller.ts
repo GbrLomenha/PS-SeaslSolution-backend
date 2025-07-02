@@ -38,6 +38,7 @@ export class DuvController {
   @ApiParam({ name: 'id', type: 'number', description: 'ID do DUV a ser atualizado' })
   @ApiBody({ type: UpdateDuvDto, description: 'Dados necessários para atualizar um DUV' })
   @ApiResponse({ status: 200, description: 'DUV atualizado com sucesso.' })
+  @ApiResponse({ status: 404, description: 'DUV não encontrado.' })
   @ApiResponse({ status: 500, description: 'Erro ao atualizar DUV.' })
   update(@Param('id') ID_duv: string, @Body() updateDuvDto: UpdateDuvDto) {
     return this.duvService.update(+ID_duv, updateDuvDto);
