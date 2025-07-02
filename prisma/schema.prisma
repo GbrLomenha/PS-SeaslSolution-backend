@@ -36,14 +36,14 @@ model Pessoa {
 model Passageiro {
 	ID_passageiro Int @id @default(autoincrement())
 	ID_pessoa Int @unique
-	pessoa Pessoa @relation(fields: [ID_pessoa], references: [ID_pessoa])
+	pessoa Pessoa @relation(fields: [ID_pessoa], references: [ID_pessoa], onDelete: Cascade)
 }
 
 model Tripulante {
 	ID_tripulante Int @id @default(autoincrement())
 	DS_sid String
 	ID_pessoa Int @unique
-	pessoa Pessoa @relation(fields: [ID_pessoa], references: [ID_pessoa])
+	pessoa Pessoa @relation(fields: [ID_pessoa], references: [ID_pessoa], onDelete: Cascade)
 }
 
 model DUV{

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -80,11 +80,53 @@ export class PessoaService {
     });
   }
 
-  update(id: number, updatePessoaDto: UpdatePessoaDto) {
-    return `This action updates a #${id} pessoa`;
+  async update(ID_pessoa: number, updatePessoaDto: UpdatePessoaDto, img_file: Express.Multer.File) {
+    const pessoa = await this.prismaService.pessoa.findUnique({
+      where: { ID_pessoa: ID_pessoa }
+    })
+
+    if (pessoa && img_file){
+      await this.cloudinary.deleteImage(pessoa.ID_img_cloudinary)
+        .catch(error => { throw new HttpException(`Falha ao deletar imagem no serviço de nuvem ${error}`, 500) });
+
+      const uploadResult = await this.cloudinary.upload(img_file)
+        .catch(error => { throw new HttpException(`Falha ao gravar a imagem no serviço de nuvem ${error}`, 500) });
+
+      const imageUrl = uploadResult.secure_url;
+      const idCloudinary = uploadResult.public_id;
+
+      updatePessoaDto["URL_foto_pessoa"] = imageUrl;
+      updatePessoaDto["ID_img_cloudinary"] = idCloudinary;
+    }
+
+    return this.prismaService.pessoa.update({
+      where: { ID_pessoa: ID_pessoa },
+      data: updatePessoaDto
+    }).catch(error => {
+      throw new HttpException(`Falha ao atualizar pessoa: ${error.message}`, 500);
+    });
+
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pessoa`;
+  async remove(ID_pessoa: number) {
+    const pessoa = await this.prismaService.pessoa.findUnique({
+      where: { ID_pessoa: ID_pessoa }
+    });
+
+    if (!pessoa) {
+      throw new HttpException(`Pessoa com ID ${ID_pessoa} não encontrado`, 404);
+    }
+
+    this.cloudinary.deleteImage(pessoa.ID_img_cloudinary)
+      .catch(error => { throw new HttpException(`Falha ao deletar imagem no serviço de nuvem ${error}`, 500) });
+    
+    return this.prismaService.pessoa.delete({
+      where: { ID_pessoa: ID_pessoa }
+    }).catch(error => {
+      throw new HttpException(`Falha ao remover pessoa: ${error.message}`, 500);
+    }).then(() => {
+      return { message: `Pessoa com ID ${ID_pessoa} removida com sucesso` };
+    }
+    );  
   }
 }

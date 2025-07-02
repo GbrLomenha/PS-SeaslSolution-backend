@@ -31,13 +31,14 @@ export class PessoaController {
     return this.pessoaService.findOne(+ID_pessoa);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePessoaDto: UpdatePessoaDto) {
-    return this.pessoaService.update(+id, updatePessoaDto);
+  @Patch('atualizar/:id')
+  @UseInterceptors(FileInterceptor('img_file'))
+  update(@Param('id') ID_pessoa: string, @Body() updatePessoaDto: UpdatePessoaDto, @UploadedFile() img_file: Express.Multer.File) {
+    return this.pessoaService.update(+ID_pessoa, updatePessoaDto, img_file);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pessoaService.remove(+id);
+  @Delete('apagar/:id')
+  remove(@Param('id') ID_pessoa: string) {
+    return this.pessoaService.remove(+ID_pessoa);
   }
 }
