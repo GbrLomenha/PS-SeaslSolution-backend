@@ -1,8 +1,42 @@
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+    provider = "sqlite"
+    url      = "file:./dev.db"
 }
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
+}
+
+model Navio {
+	ID_navio Int @id @default(autoincrement())
+	NO_navio String
+	URL_img_navio String
+	DS_bandeira String
+	DT_criacao DateTime @default(now())
+	DT_atualizacao DateTime @updatedAt()
+
+	DUVs DUV[]
+}
+
+model Pessoa {
+	ID_pessoa Int @id @default(autoincrement())
+	NO_pessoa String
+	DS_nacionalidade String
+	URL_foto_pessoa String
+	DT_criacao DateTime @default(now())
+	DT_atualizacao DateTime @updatedAt()
+
+	DUVs DUV[] @relation("DUV_Pessoa")
+}
+
+model DUV{
+	ID_duv Int @id @default(autoincrement())
+	NO_duv String
+	DT_viagem DateTime
+	DT_criacao DateTime @default(now())
+	DT_atualizacao DateTime @updatedAt()
+
+	Pessoas Pessoa[] @relation("DUV_Pessoa")
+	ID_navio Int
+	navio Navio @relation(fields: [ID_navio], references: [ID_navio])
 }
