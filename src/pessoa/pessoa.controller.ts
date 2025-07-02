@@ -21,15 +21,14 @@ export class PessoaController {
     return this.pessoaService.createPassageiro(createPessoaDto, img_file);
   }
 
-
-  @Get()
+  @Get("/todos")
   findAll() {
     return this.pessoaService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pessoaService.findOne(+id);
+  @Get('/detalhes/:id')
+  findOne(@Param('id') ID_pessoa: string) {
+    return this.pessoaService.findOne(+ID_pessoa);
   }
 
   @Patch(':id')

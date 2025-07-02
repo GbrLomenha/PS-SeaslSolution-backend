@@ -66,11 +66,18 @@ export class PessoaService {
   }
 
   findAll() {
-    return `This action returns all pessoa`;
+    return this.prismaService.pessoa.findMany({}).
+      catch(error => { 
+        throw new Error(`Erro ao buscar pessoas: ${error.message}`);
+      });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pessoa`;
+  findOne(ID_pessoa: number) {
+    return this.prismaService.pessoa.findUnique({
+      where: { ID_pessoa: ID_pessoa },
+    }).catch(error => {
+      throw new Error(`Erro ao buscar pessoa com ID ${ID_pessoa}: ${error.message}`);
+    });
   }
 
   update(id: number, updatePessoaDto: UpdatePessoaDto) {
