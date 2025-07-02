@@ -48,7 +48,7 @@ model Tripulante {
 
 model DUV{
 	ID_duv Int @id @default(autoincrement())
-	NO_duv String
+	NU_duv String
 	DT_viagem DateTime
 	DT_criacao DateTime @default(now())
 	DT_atualizacao DateTime @updatedAt()
