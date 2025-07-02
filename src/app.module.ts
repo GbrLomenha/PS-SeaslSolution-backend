@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from './prisma/prisma.module';
 import { NavioModule } from './navio/navio.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
-  imports: [PrismaModule, NavioModule],
+  imports: [PrismaModule, CloudinaryModule, NavioModule],
   controllers: [],
   providers: [],
 })
