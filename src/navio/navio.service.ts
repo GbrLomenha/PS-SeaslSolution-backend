@@ -46,7 +46,19 @@ export class NavioService {
     });
   }
 
-  update(ID_navio: number, updateNavioDto: UpdateNavioDto) {
+  async update(ID_navio: number, updateNavioDto: UpdateNavioDto, img_file?: Express.Multer.File) {
+
+    if(img_file){
+      const uploadResult = await this.cloudinary.upload(img_file)
+        .catch(error => { throw new HttpException(`Falha ao gravar a imagem no serviço de nuvem ${error}`, 500) });
+
+      const imageUrl = uploadResult.secure_url;
+      const idCloudinary = uploadResult.public_id;
+
+      updateNavioDto["URL_img_navio"] = imageUrl;
+      updateNavioDto["ID_img_cloudinary"] = idCloudinary;
+    }
+
     return this.prismaService.navio.update({
       where: { ID_navio },
       data: updateNavioDto
@@ -55,7 +67,26 @@ export class NavioService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} navio`;
+  async remove(ID_navio: number) {
+    const navio = await this.prismaService.navio.findUnique({
+      where: { ID_navio: ID_navio }
+    })
+
+    if (!navio) {
+      throw new HttpException(`Navio com ID ${ID_navio} não encontrado`, 404);
+    }
+
+    this.cloudinary.deleteImage(navio.ID_img_cloudinary)
+      .catch(error => { throw new HttpException(`Falha ao deletar imagem no serviço de nuvem ${error}`, 500) });
+
+    return this.prismaService.navio.delete({
+      where: { ID_navio }
+    }).catch(error => {
+      throw new HttpException(`Falha ao remover navio: ${error.message}`, 500);
+    }
+    ).then(() => {
+      return { message: `Navio com ID ${ID_navio} removido com sucesso` };
+    }
+    );
   }
 }

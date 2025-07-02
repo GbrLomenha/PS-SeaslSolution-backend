@@ -24,13 +24,14 @@ export class NavioController {
     return this.navioService.findOne(+ID_navio);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNavioDto: UpdateNavioDto) {
-    return this.navioService.update(+id, updateNavioDto);
+  @Patch('atualizar/:id')
+  @UseInterceptors(FileInterceptor('img_file'))
+  update(@Param('id') ID_navio: string, @Body() updateNavioDto: UpdateNavioDto, @UploadedFile() img_file?: Express.Multer.File) {
+    return this.navioService.update(+ID_navio, updateNavioDto, img_file);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.navioService.remove(+id);
+  @Delete('apagar/:id')
+  remove(@Param('id') ID_navio: string) {
+    return this.navioService.remove(+ID_navio);
   }
 }
