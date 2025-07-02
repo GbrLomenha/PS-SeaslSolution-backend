@@ -15,7 +15,7 @@ model Navio {
 	DT_criacao DateTime @default(now())
 	DT_atualizacao DateTime @updatedAt()
 
-	DUVs DUV[]
+    duvs DUV[]
 }
 
 model Pessoa {
@@ -25,8 +25,23 @@ model Pessoa {
 	URL_foto_pessoa String
 	DT_criacao DateTime @default(now())
 	DT_atualizacao DateTime @updatedAt()
+	passageiro Passageiro?
+	tripulante Tripulante?
 
 	DUVs DUV[] @relation("DUV_Pessoa")
+}
+
+model Passageiro {
+	ID_passageiro Int @id @default(autoincrement())
+	ID_pessoa Int @unique
+	pessoa Pessoa @relation(fields: [ID_pessoa], references: [ID_pessoa])
+}
+
+model Tripulante {
+	ID_tripulante Int @id @default(autoincrement())
+	DS_sid String
+	ID_pessoa Int @unique
+	pessoa Pessoa @relation(fields: [ID_pessoa], references: [ID_pessoa])
 }
 
 model DUV{
@@ -36,7 +51,7 @@ model DUV{
 	DT_criacao DateTime @default(now())
 	DT_atualizacao DateTime @updatedAt()
 
-	Pessoas Pessoa[] @relation("DUV_Pessoa")
+	pessoas Pessoa[] @relation("DUV_Pessoa")
 	ID_navio Int
 	navio Navio @relation(fields: [ID_navio], references: [ID_navio])
 }
