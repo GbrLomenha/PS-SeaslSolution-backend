@@ -7,7 +7,7 @@ import { UpdateDuvDto } from './dto/update-duv.dto';
 export class DuvController {
   constructor(private readonly duvService: DuvService) {}
 
-  @Post()
+  @Post('/registrar')
   create(@Body() createDuvDto: CreateDuvDto) {
     return this.duvService.create(createDuvDto);
   }
