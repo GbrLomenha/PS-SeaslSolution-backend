@@ -1,5 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { v2 as cloudinary, UploadApiResponse, v2 } from 'cloudinary'
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { v2 as cloudinary, UploadApiErrorResponse, UploadApiResponse, v2 } from 'cloudinary'
+import toStream = require('buffer-to-stream');
+
 
 @Injectable()
 export class CloudinaryService {
@@ -15,47 +17,22 @@ export class CloudinaryService {
 
   public cloudinaryUrl: string
 
-/**
- * Faz o upload de uma imagem para o Cloudinary com configurações específicas de transformação.
- *
- * @param file - O arquivo de imagem a ser enviado. Pode ser um caminho de arquivo local, buffer ou stream suportado pelo Cloudinary.
- * @returns Uma Promise que resolve para um objeto `UploadApiResponse` contendo os dados do upload, incluindo a URL segura da imagem.
- *
- * @throws {HttpException} Lança uma exceção HTTP com status 400 se o upload falhar.
- *
- * @remarks
- * - A imagem é enviada para a pasta "ps-seals" no Cloudinary.
- * - Aplica transformações para limitar o tamanho, ajustar qualidade, escolher formato eficiente, comprimir e remover metadados.
- * - A propriedade `url` do resultado é sobrescrita com o valor de `secure_url` para garantir o uso de HTTPS.
- */
-  async uploadImage(file): Promise<UploadApiResponse> {
-    
-    return new Promise<UploadApiResponse>(async (resolve, reject) => {
-      try {
-        const result = await v2.uploader.upload(
-          file,
-          {
-            folder: "ps-seals", // Define/cria uma pasta no Cloudinary
-            resource_type: 'image',
-            transformation: [
-              { width: 500, height: 500, crop: 'limit' }, // Redimensiona mantendo proporção
-              { quality: 'auto' }, // Ajusta qualidade automaticamente
-              { fetch_format: 'auto' }, // Usa formato mais eficiente, WebP, AVIF ou JPEG
-              { flags: 'lossy' }, // Usa compressão extra para formatos como PNG
-              { flags: 'strip_profile' } // Remove metadados desnecessários (EXIF, ICC, etc.)
-            ]
-          }
-        )
-        const secureResult = result as UploadApiResponse;
-        secureResult.url = result.secure_url;
-        resolve(secureResult);
-      } catch (error) {
-        reject( new HttpException(`Failed to upload image to cloudinary: ${error.message}`, HttpStatus.BAD_REQUEST))
+  async upload(file: Express.Multer.File): Promise<UploadApiResponse | UploadApiErrorResponse> {
+    return new Promise((resolve, reject) => {
+      if (!file || !file.buffer) {
+        return reject(new BadRequestException('Arquivo não foi enviado ou não está disponível.'));
       }
-    })  
+      const upload = v2.uploader.upload_stream((error, result) => {
+        if (error) {
+          console.error('Erro ao fazer upload no Cloudinary:', error);
+          return reject(new BadRequestException('Erro ao fazer upload da imagem. Detalhes: ' + error.message));
+        }
+        resolve(result as UploadApiResponse);
+      });
 
-
-  }
+      toStream(file.buffer).pipe(upload);
+    });
+  } 
 
 /**
  * Exclui uma imagem do Cloudinary com base no seu publicId.
