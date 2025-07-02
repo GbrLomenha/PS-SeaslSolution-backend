@@ -12,23 +12,23 @@ export class DuvController {
     return this.duvService.create(createDuvDto);
   }
 
-  @Get()
+  @Get("/todos")
   findAll() {
     return this.duvService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.duvService.findOne(+id);
+  @Get('detalhes/:id')
+  findOne(@Param('id') ID_duv: string) {
+    return this.duvService.findOne(+ID_duv);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDuvDto: UpdateDuvDto) {
-    return this.duvService.update(+id, updateDuvDto);
+  @Patch('atualizar/:id')
+  update(@Param('id') ID_duv: string, @Body() updateDuvDto: UpdateDuvDto) {
+    return this.duvService.update(+ID_duv, updateDuvDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.duvService.remove(+id);
+  @Delete('apagar/:id')
+  remove(@Param('id') ID_duv: string) {
+    return this.duvService.remove(+ID_duv);
   }
 }
