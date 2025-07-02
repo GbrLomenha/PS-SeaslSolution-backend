@@ -1,16 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { PessoaService } from './pessoa.service';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { CreateTripulanteDto } from './dto/create-tripulate.dto';
 
 @Controller('pessoa')
 export class PessoaController {
   constructor(private readonly pessoaService: PessoaService) {}
 
-  @Post()
-  create(@Body() createPessoaDto: CreatePessoaDto) {
-    return this.pessoaService.create(createPessoaDto);
+  @Post("/registrar-tripulante")
+  @UseInterceptors(FileInterceptor('img_file'))
+  createTripulante(@Body() CreateTripulanteDto: CreateTripulanteDto, @UploadedFile() img_file: Express.Multer.File) {
+    return this.pessoaService.createTripulante(CreateTripulanteDto, img_file);
   }
+
+  @Post("/registrar-passageiro")
+  @UseInterceptors(FileInterceptor('img_file'))
+  createPassageiro(@Body() createPessoaDto: CreatePessoaDto, @UploadedFile() img_file: Express.Multer.File) {
+    return this.pessoaService.createPassageiro(createPessoaDto, img_file);
+  }
+
 
   @Get()
   findAll() {
