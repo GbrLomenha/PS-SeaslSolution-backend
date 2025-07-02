@@ -32,15 +32,27 @@ export class NavioService {
   }
 
   findAll() {
-    return `This action returns all navio`;
+    return this.prismaService.navio.findMany({})
+      .catch(error => {
+        throw new HttpException(`Falha ao buscar navios: ${error.message}`, 500);
+      });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} navio`;
+  findOne(ID_navio: number) {
+    return this.prismaService.navio.findUnique({
+      where: { ID_navio }
+    }).catch(error => {
+      throw new HttpException(`Falha ao buscar navio: ${error.message}`, 500);
+    });
   }
 
-  update(id: number, updateNavioDto: UpdateNavioDto) {
-    return `This action updates a #${id} navio`;
+  update(ID_navio: number, updateNavioDto: UpdateNavioDto) {
+    return this.prismaService.navio.update({
+      where: { ID_navio },
+      data: updateNavioDto
+    }).catch(error => {
+      throw new HttpException(`Falha ao atualizar navio: ${error.message}`, 500);
+    });
   }
 
   remove(id: number) {
