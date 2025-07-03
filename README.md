@@ -16,8 +16,6 @@ Como podemos ver na modelagem, foi adotada uma entidade Pessoa como uma generali
 
 Os relacionamentos foram definidos de forma que ao fazer quaisquer remoções de dados, não houvesse qualquer tipo de incongruência ou insuficiência de informações necessárias para o entendimento de uma entidade. Por exemplo: Ao apagar uma DUV do banco de dados, a entidade Pessoa ou Navio permanece entendível e completa, ou seja, são auto suficientes. Porém ao remover um navio ou todas as pessoas de uma DUV, a mesma torna-se incompleta pois, sem tais informações, não cumpre totalmente sua função informativa.
 
-Como trata-se de um case técnico, o qual não deve ter aplicação, por praticidade optou-se utilizar SQLite como SGBD para este projeto e Prisma como ORM, Cloudinary para registro de arquivos de imagem e Insomnia para testes de consumo de API.
-
 ## Requisitos
 
 ### API - Documentação e Ferramentas Utilizadas
@@ -28,7 +26,7 @@ Visando contemplar todas as funcionalidades listadas no desafio, foram definidos
   <img src="./arquivos%20de%20entrega/endpoints.jpeg" alt="Endpoints">
 </p>
 
-A biblioteca class-validator será utilizada como validador de entrada de registros de dados na API que será implementada com framework NestJs.
+A biblioteca class-validator será utilizada como validador de entrada de registros de dados na API que será implementada com framework NestJs. Como trata-se de um case técnico, o qual não deve ter aplicação, por praticidade optou-se utilizar SQLite como SGBD para este projeto e Prisma como ORM, Cloudinary para registro de arquivos de imagem e Insomnia para testes de consumo de API.
 
 ## Referências
 
