@@ -1,0 +1,3 @@
+[submodule "api-back-seals"]
+	path = api-back-seals
+	url = https://github.com/GbrLomenha/api-backend-seals.git
