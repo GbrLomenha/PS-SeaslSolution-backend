@@ -1,75 +1,28 @@
-# Processo Seletivo - 2025
-Neste repositório você encontrará instruções para o desafio técnico do processo seletivo de 2025.
+```markdown
+**MODELAGEM DE DADOS**
 
-# Instruções
-Leia com atenção as instruções abaixo e siga os passos necessários para completar o desafio.
+Ao analisar as especificidades do desafio técnico, foi realizada uma breve modelagem de dados para definir de forma mais apropriada como seriam armazenados os dados necessários na aplicação. Para isso foi realizada uma modelagem conceitual![Texto Alternativo](Modelagem%20Conceitual.pdf) e uma modelagem lógica![Texto Alternativo](Modelagem%20Lógica.pdf) feitas a partir do entendimento da relação entre os dados necessários na aplicação. 
+Como podemos ver na modelagem, foi adotada uma entidade Pessoa como uma generalização e, Passageiro e Tripulante como especializações, visando escalabilidade para adição de possíveis atributos exclusivos para cada tipo de pessoa futuramente sem afetar o funcionamento da aplicação.
+Os relacionamentos foram definidos de forma que ao fazer quaisquer remoções de dados, não houvesse qualquer tipo de incongruência ou insuficiência de informações necessárias para o entendimento de uma entidade. Por exemplo: Ao apagar uma DUV do banco de dados, a entidade Pessoa ou Navio permanece entendível e completa, ou seja, são auto suficientes. Porém ao remover um navio ou todas as pessoas de uma DUV, a mesma torna-se incompleta pois, sem tais informações, não cumpre totalmente sua função informativa.
 
-1. O desafio é para uma vaga FullStack, entretanto, você pode optar por fazer os dois (API e Front) ou apenas um dos dois projetos. No caso do front-end, você pode decidir entre fazer uma versão Web ou Mobile.  
+Como trata-se de um case técnico, o qual não deve ter aplicação, por praticidade optou-se utilizar SQLite como SGBD para este projeto e Prisma como ORM, Cloudinary para registro de arquivos de imagem e Insomnia para testes de consumo de API.
 
-2. Você pode escolher a linguagem e o framework que preferir para desenvolver a API e o Frontend. Sinta-se à vontade para utilizar as tecnologias com as quais você se sente mais confortável.
+**REQUISITOS**
 
-3. Na escolha do front-end, o UX/UI da interface não será passível de remoção ou adição de pontos, mas é interessante que a interface seja funcional e intuitiva.
+- **API**
 
-4. Faça um fork deste repositório e desenvolva o seu projeto no seu fork. 
+Visando contemplar todas as funcionalidades listadas no desafio, foi definido os seguintes endpoints documentados com Swagger: (anexar print do swagger). A biblioteca class-validator será utilizada como validador de entrada de registros de dados na API que será implementada com framework NestJs.
 
-5. Após concluir, envie o link do seu fork para o e-mail indicado no processo seletivo.
+**REFERÊNCIAS**
 
-6. Permitimos o uso de agentes como o ChatGPT, Gemini AI, entre outros durante o desenvolvimento do projeto. O uso de LLMs deve ser feito de forma responsável e ética, garantindo que o código gerado seja revisado e adaptado conforme necessário.
+**Documentações**
 
-# Desafio Técnico 
-## Entidades
-As entidades envolvidas neste desafio técnico conectam DUV (Documento Único Virtual) que configura uma viagem de uma embarcação, os navios atrelados à viagem e passageiros.
+- **Documentação do NestJs: https://docs.nestjs.com/**
+- **Documentação do PrismaORM: https://www.prisma.io/docs**
+- **Documentação do Cloudinary: https://cloudinary.com/**
 
-### DUV
-Em uma DUV estão contidas as informações de uma viagem de um navio, incluindo os passageiros e tripulantes que embarcaram nessa viagem, que pode ser estruturada da seguinte forma:
+**IAs Generativas utilizadas para sanação de dúvidas**
 
-- Id
-- Número da DUV
-- Data da viagem
-- Navio 
-- Lista de Passageiros
-
-### Navio
-Em uma DUV, o navio é o meio de transporte utilizado na viagem, que pode ser estruturado da seguinte forma:
-
-- Id
-- Nome
-- Bandeira
-- Imagem
-
-### Passageiro
-Em uma DUV, o passageiro é a pessoa que embarca na viagem, que pode ser estruturada da seguinte forma:
-
-- Id
-- Nome
-- Tipo: 
-  - Passageiro
-  - Tripulante -> é caracterizado pela existência de um documento chamado SID (Seafarers' Identity Document)
-- Nacionalidade
-- Foto
-
-## Objetivo do desafio
-Esperamos que o desenvolvedor ao participar do processo seletivo consiga demonstrar suas habilidades de desenvolvimento, tanto no back-end quanto no front-end, criando uma aplicação que consuma uma API e apresente as informações de forma clara e organizada ou um sistema bem estruturado e com uma arquitetura limpa fazendo parte de bons processos de Engenharia de Software.
-
-
-### Front-End
-- Listar todas as DUVs cadastradas na tela inicial
-- Ao visualizar a DUV selecionada, exibir as informações do navio e dos passageiros
-- Separar visualmente os passageiros e tripulantes
-
-### Back-End
-- Modelagem de dados relacional para as entidades DUV, Navio e Passageiro
-- Endpoints para CRUD das entidades DUV, Navio e Passageiro
-- Endpoint para listar uma determinada DUV e os passageiros relacionados
-
-
-# Recursos Fornecidos
-Se você optar por desenvolver somente o front-end, utilize os dados mockados no arquivo `mock.json`. O arquivo contém:
-
-- Lista de 10 DUVs
-- Dados de 5 passageiros por DUVs
-- URLs de imagens geradas e autorizadas via randomuser.me e Unsplash
-
-
-# Entrega
-Após o recebimento do desafio, o candidato terá até 7 dias para concluir o desafio e enviar o link do fork do repositório para o e-mail indicado no processo seletivo.
+- **Gemini AI PRO 2.5**
+- **Github Copilot (GPT - 4.o)**
+```
