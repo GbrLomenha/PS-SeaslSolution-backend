@@ -1,6 +1,6 @@
 # Modelagem de Dados
 
-Ao analisar as especificidades do desafio técnico, foi realizada uma breve modelagem de dados para definir de forma mais apropriada como seriam armazenados os dados necessários na aplicação. Para isso foi realizada uma modelagem conceitual![Texto Alternativo](Modelagem%20Conceitual.pdf) e uma modelagem lógica![Texto Alternativo](Modelagem%20Lógica.pdf) feitas a partir do entendimento da relação entre os dados necessários na aplicação.
+Ao analisar as especificidades do desafio técnico, foi realizada uma breve modelagem de dados para definir de forma mais apropriada como seriam armazenados os dados necessários na aplicação. Para isso foi realizada uma modelagem conceitual [Texto Alternativo](./arquivos%20de%20entrega/Modelagem%20Conceitual.pdf) e uma modelagem lógica [Texto Alternativo](./arquivos%20de%20entrega/Modelagem%20Lógica.pdf) feitas a partir do entendimento da relação entre os dados necessários na aplicação.
 
 Como podemos ver na modelagem, foi adotada uma entidade Pessoa como uma generalização e, Passageiro e Tripulante como especializações, visando escalabilidade para adição de possíveis atributos exclusivos para cada tipo de pessoa futuramente sem afetar o funcionamento da aplicação.
 
@@ -12,7 +12,7 @@ Como trata-se de um case técnico, o qual não deve ter aplicação, por pratici
 
 ### API
 
-Visando contemplar todas as funcionalidades listadas no desafio, foram definidos os seguintes endpoints documentados com Swagger: (anexar print do swagger). A biblioteca class-validator será utilizada como validador de entrada de registros de dados na API que será implementada com framework NestJs.
+Visando contemplar todas as funcionalidades listadas no desafio, foram definidos os seguintes endpoints documentados com Swagger: ![TextoAlternativo](./arquivos%20de%20entrega/endpoints.jpeg). A biblioteca class-validator será utilizada como validador de entrada de registros de dados na API que será implementada com framework NestJs.
 
 ## Referências
 
