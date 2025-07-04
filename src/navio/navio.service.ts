@@ -19,7 +19,6 @@ export class NavioService {
     const imageUrl = uploadResult.secure_url;
     const idCloudinary = uploadResult.public_id;
 
-
     return this.prismaService.navio.create({
       data: {
         ...createNavioDto,
@@ -52,17 +51,14 @@ export class NavioService {
     })
 
     if(navio && img_file){
-      this.cloudinary.deleteImage(navio.ID_img_cloudinary)
+      this.cloudinary.deleteImage(navio.ID_img_cloudinary) //Remove a imagem antiga do serviço de nuvem
         .catch(error => { throw new HttpException(`Falha ao deletar imagem no serviço de nuvem ${error}`, 500) });
 
-      const uploadResult = await this.cloudinary.upload(img_file)
+      const uploadResult = await this.cloudinary.upload(img_file) // Faz o upload da nova imagem
         .catch(error => { throw new HttpException(`Falha ao gravar a imagem no serviço de nuvem ${error}`, 500) });
 
-      const imageUrl = uploadResult.secure_url;
-      const idCloudinary = uploadResult.public_id;
-
-      updateNavioDto["URL_img_navio"] = imageUrl;
-      updateNavioDto["ID_img_cloudinary"] = idCloudinary;
+      updateNavioDto["URL_img_navio"] = uploadResult.secure_url;
+      updateNavioDto["ID_img_cloudinary"] = uploadResult.public_id;
     }
 
     return this.prismaService.navio.update({

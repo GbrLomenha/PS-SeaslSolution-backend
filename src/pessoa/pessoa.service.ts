@@ -68,7 +68,7 @@ export class PessoaService {
   findAll() {
     return this.prismaService.pessoa.findMany({}).
       catch(error => { 
-        throw new Error(`Erro ao buscar pessoas: ${error.message}`);
+        throw new HttpException(`Erro ao buscar pessoas: ${error.message}`, 500);
       });
   }
 
@@ -76,7 +76,7 @@ export class PessoaService {
     return this.prismaService.pessoa.findUnique({
       where: { ID_pessoa: ID_pessoa },
     }).catch(error => {
-      throw new Error(`Erro ao buscar pessoa com ID ${ID_pessoa}: ${error.message}`);
+      throw new HttpException(`Erro ao buscar pessoa com ID ${ID_pessoa}: ${error.message}`, 500);
     });
   }
 
@@ -92,11 +92,8 @@ export class PessoaService {
       const uploadResult = await this.cloudinary.upload(img_file)
         .catch(error => { throw new HttpException(`Falha ao gravar a imagem no serviço de nuvem ${error}`, 500) });
 
-      const imageUrl = uploadResult.secure_url;
-      const idCloudinary = uploadResult.public_id;
-
-      updatePessoaDto["URL_foto_pessoa"] = imageUrl;
-      updatePessoaDto["ID_img_cloudinary"] = idCloudinary;
+      updatePessoaDto["URL_foto_pessoa"] = uploadResult.secure_url;
+      updatePessoaDto["ID_img_cloudinary"] = uploadResult.public_id;
     }
 
     return this.prismaService.pessoa.update({
@@ -105,7 +102,6 @@ export class PessoaService {
     }).catch(error => {
       throw new HttpException(`Falha ao atualizar pessoa: ${error.message}`, 500);
     });
-
   }
 
   async remove(ID_pessoa: number) {
