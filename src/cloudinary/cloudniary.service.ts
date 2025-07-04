@@ -7,12 +7,12 @@ import toStream = require('buffer-to-stream');
 export class CloudinaryService {
   constructor() {
     cloudinary.config({
-      cloud_name: "df7bz8she",
-      api_key: "476877472667937",
-      api_secret: "DFfj_H5Dv-d15nNlGTk-HNuR30s",
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
       secure: true,
     })
-    this.cloudinaryUrl = "cloudinary://476877472667937:DFfj_H5Dv-d15nNlGTk-HNuR30s@df7bz8she"
+    this.cloudinaryUrl = `cloudinary://${process.env.CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_API_SECRET}@${process.env.CLOUDINARY_CLOUD_NAME}`
   }
 
   public cloudinaryUrl: string
