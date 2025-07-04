@@ -40,7 +40,7 @@
 
 4. Inicialize um container:
    ```bash
-   docker run -d -p <PORTA_LIVRE>:3000 gbrlomenha/processo-seletivo-seals-2025
+   docker run -d -p <PORTA_LIVRE>:3000 gbrlomenha/processo-seletivo-seals-2025:1.2
    ```
 
 Substitua `<PORTA_LIVRE>` por uma porta disponível no seu sistema.
