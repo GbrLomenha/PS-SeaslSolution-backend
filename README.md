@@ -2,7 +2,7 @@
 
 ## Modelagem de Dados
 
-Ao analisar as especificidades do desafio técnico, foi realizada uma breve modelagem de dados para definir de forma mais apropriada como seriam armazenados os dados necessários na aplicação. Para isso foi realizada uma modelagem conceituale uma modelagem lógica feitas a partir do entendimento da relação entre os dados necessários na aplicação: 
+Ao analisar as especificidades do desafio técnico, foi realizada uma breve modelagem de dados para definir de forma mais apropriada como seriam armazenados os dados necessários na aplicação. Para isso foi realizada uma modelagem conceitual e uma modelagem lógica feitas a partir do entendimento da relação entre os dados necessários na aplicação: 
 
 <p align="center">
   <img src="./arquivos%20de%20entrega/Modelagem%20Conceitual_page-0001.jpg" alt="Modelagem Conceitual">
